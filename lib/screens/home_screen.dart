@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatelessWidget {
   final VoidCallback? screenChange;
@@ -22,10 +22,10 @@ class HomeScreen extends StatelessWidget {
         ),
         Text(
           'Flutter',
-          style: GoogleFonts.lato(
-            fontSize: 24,
-            color: const Color.fromARGB(255, 237, 223, 252),
-          ),
+          // style: GoogleFonts.lato(
+          //   fontSize: 24,
+          //   color: const Color.fromARGB(255, 237, 223, 252),
+          // ),
         ),
         const SizedBox(
           height: 20,

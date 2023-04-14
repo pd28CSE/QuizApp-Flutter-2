@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 
 import 'package:quizeapp/answer_button.dart';
 import 'package:quizeapp/data/questions.dart';
 
 class QuestionsScreen extends StatefulWidget {
-  const QuestionsScreen({super.key});
+  final Function onAddAnswer;
+  const QuestionsScreen({super.key, required this.onAddAnswer});
 
   @override
   State<QuestionsScreen> createState() => _QuestionsScreenState();
@@ -14,6 +15,11 @@ class QuestionsScreen extends StatefulWidget {
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
   int currentQuestion = 0;
+
+  void onSelectAnswer(String answer) {
+    widget.onAddAnswer(answer);
+    currentQuestion = (currentQuestion + 1) % questions.length;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +31,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
         children: <Widget>[
           Text(
             questions[currentQuestion].text,
-            style: GoogleFonts.lato(
+            style: const TextStyle(
               fontSize: 24,
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -41,6 +47,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             return AnswerButton(
                 answer: questionAnswer,
                 onTab: () {
+                  widget.onAddAnswer(questionAnswer);
                   setState(() {
                     currentQuestion = (currentQuestion + 1) % questions.length;
                   });
