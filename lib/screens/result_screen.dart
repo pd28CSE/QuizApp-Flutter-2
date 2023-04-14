@@ -1,11 +1,38 @@
 import 'package:flutter/material.dart';
 
+import 'package:quizeapp/data/questions.dart';
+import 'package:quizeapp/questions_summary.dart';
+
 class ResultScreen extends StatelessWidget {
   final List<String> chosenAnswers;
-  const ResultScreen({super.key, required this.chosenAnswers});
+  final VoidCallback onRestartQuiz;
+  const ResultScreen({
+    super.key,
+    required this.chosenAnswers,
+    required this.onRestartQuiz,
+  });
+
+  List<Map<String, Object>> getSummary() {
+    final List<Map<String, Object>> summary = [];
+
+    for (int i = 0; i < questions.length; i++) {
+      summary.add({
+        'question_index': i,
+        'question_text': questions[i].text,
+        'correct_answer': questions[i].answers[0],
+        'user_answer': chosenAnswers[i]
+      });
+    }
+    return summary;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, Object>> summary = getSummary();
+    final int totalCorrectAnswers = summary.where((item) {
+      return item['correct_answer'] == item['user_answer'];
+    }).length;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -13,7 +40,7 @@ class ResultScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Text(
-            'You answer x out of y correctly!',
+            'You answer $totalCorrectAnswers out of ${questions.length} correctly!',
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Colors.white,
@@ -23,13 +50,11 @@ class ResultScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          Text('List of The answer'),
-          const SizedBox(
-            height: 20,
-          ),
-          TextButton(
-            onPressed: () {},
-            child: const Text('Restart Quiz'),
+          QuestionSummary(summaryData: summary),
+          TextButton.icon(
+            onPressed: onRestartQuiz,
+            icon: const Icon(Icons.restore),
+            label: const Text('Restart Quiz'),
           ),
         ],
       ),
