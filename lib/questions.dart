@@ -4,12 +4,12 @@ class Questions extends StatefulWidget {
   const Questions({super.key});
 
   @override
-  State<Questions> createState() => QuestionsState();
+  State<Questions> createState() => _QuestionsState();
 }
 
-class QuestionsState extends State<Questions> {
+class _QuestionsState extends State<Questions> {
   @override
   Widget build(BuildContext context) {
-    return Text('dgdg');
+    return const Center(child: Text('Questions'));
   }
 }

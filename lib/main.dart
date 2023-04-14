@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:quizeapp/screens/home_screen.dart';
+import 'package:quizeapp/quiz.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,10 +11,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'QuizeApp',
       home: Scaffold(
-        body: HomeScreen(),
+        body: Container(
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 78, 12, 151),
+                Color.fromARGB(255, 107, 15, 168),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: const Quiz(),
+        ),
       ),
     );
   }
