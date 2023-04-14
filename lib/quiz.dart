@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:quizeapp/screens/home_screen.dart';
-import 'package:quizeapp/questions.dart';
+import 'package:quizeapp/screens/questions_screen.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -23,6 +23,6 @@ class _QuizState extends State<Quiz> {
   Widget build(BuildContext context) {
     return activeScreen == 'home-screen'
         ? HomeScreen(switchScreen)
-        : const Questions();
+        : const QuestionsScreen();
   }
 }
