@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+
 import 'package:quizeapp/answer_button.dart';
 import 'package:quizeapp/data/questions.dart';
 
@@ -23,19 +25,25 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
         children: <Widget>[
           Text(
             questions[currentQuestion].text,
-            style: const TextStyle(
+            style: GoogleFonts.lato(
+              fontSize: 24,
               color: Colors.white,
+              fontWeight: FontWeight.bold,
             ),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(
             height: 30,
           ),
-          ...questions[currentQuestion].answers.map((questionAnswer) {
+          ...questions[currentQuestion]
+              .getShuffeledAnswer()
+              .map((questionAnswer) {
             return AnswerButton(
                 answer: questionAnswer,
                 onTab: () {
-                  currentQuestion = (currentQuestion + 1) % questions.length;
-                  setState(() {});
+                  setState(() {
+                    currentQuestion = (currentQuestion + 1) % questions.length;
+                  });
                 });
           }),
         ],
